@@ -59,7 +59,13 @@ const finishRace = (correctHorse) => {
   // in real life we would map as in alternative above
   if (bets?.length > 0) {
     bets.forEach(async (bet) => {
-      console.log("send response to player: ", bet.playerAddress);
+      console.log(
+        "send response to bet id: ",
+        bet.id,
+        ", player: ",
+        bet.playerAddress,
+        ", "
+      );
       try {
         await sendCorrectHorse(
           correctHorse,

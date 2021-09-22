@@ -20,14 +20,17 @@ contract BettingOracle {
      * it notifies oracle service someone waits for a response by emiting an event
      */
     function notifyAtgOnBet(address playerAddress) public returns (uint256) {
+        idCounter++;
+        uint256 id = idCounter;
+
         console.log(
             "ORACLE: getCorrectHorse msg.sender: ",
             msg.sender,
+            ", ",
             playerAddress
         );
 
-        idCounter++;
-        uint256 id = idCounter;
+        console.log("ORACLE: getCorrectHorse id: ", id);
 
         pendingRequests[id] = true;
         // emit an event to notify external service
@@ -45,7 +48,12 @@ contract BettingOracle {
         address _bettingContractAddress,
         uint256 _id
     ) public payable {
-        console.log("ORACLE: sendCorrectHorse: ", correctHorse);
+        console.log(
+            "ORACLE: sendCorrectHorse: ",
+            correctHorse,
+            "; to id: ",
+            _id
+        );
         require(
             pendingRequests[_id],
             "This request is not in my pending list."
